@@ -41,7 +41,8 @@ with hasil_user:
         st.text("Jumlah bintang dari user")
         st.bar_chart(data["bintang"].value_counts())
 
-        bintangs = data["bintang"].value_counts().index
+        bintangs = list(data["bintang"].value_counts().index)
+        bintangs.sort(reverse=True)
         for bintang in bintangs:
             texts = " ".join(data[data["bintang"] == bintang]["komentar"])
             if texts.strip() != "":
@@ -80,4 +81,15 @@ st.markdown("""
 2. tab `hasil analisis sentimen` adalah
 3. tab `trend sekitar jabar` adalah
 4. tab `ringkasan` adalah
+""")
+
+st.markdown("----")
+st.markdown("#### FAQ")
+st.markdown("""
+**Q1**: Bagaimana cara mendapatkan link google review? \\
+**A1**:
+
+**Q2**: Kenapa harus ada analisis sentimen, padahal sudah ada rating dari user? \\
+**A2**: Karena banyak sekali user yang memberikan rating tidak sesuai dengan komentar 
+    yang diberikan. Analisis sentimen akan membantu kita untuk memberi perban
 """)
