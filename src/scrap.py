@@ -10,9 +10,10 @@ warnings.filterwarnings("ignore")
 logging.basicConfig(level=logging.INFO)
 
 
-def scrap(url, chrome_driver_path, output_path, N_SCROLL=100, to_csv=False):
+def scrap(url, chrome_driver_path, N_SCROLL, output_path="", to_csv=False):
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
+    options.add_argument("--lang=id")
     driver = webdriver.Chrome(chrome_driver_path, options=options)
     logging.info("opening url..")
     driver.get(url)
