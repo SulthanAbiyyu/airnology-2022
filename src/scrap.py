@@ -9,7 +9,8 @@ from selenium import webdriver
 warnings.filterwarnings("ignore")
 logging.basicConfig(level=logging.INFO)
 
-def scrap(url, chrome_driver_path, output_path, N_SCROLL=100):
+
+def scrap(url, chrome_driver_path, output_path, N_SCROLL=100, to_csv=False):
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     driver = webdriver.Chrome(chrome_driver_path, options=options)
@@ -80,7 +81,10 @@ def scrap(url, chrome_driver_path, output_path, N_SCROLL=100):
     })
 
     logging.info("to csv..")
-    data.to_csv(output_path, index=False)
+    if to_csv:
+        data.to_csv(output_path, index=False)
+    else:
+        return data
 
 
 if __name__ == "__main__":
