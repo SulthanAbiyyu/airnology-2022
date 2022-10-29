@@ -2,6 +2,9 @@ data
 Pendaftaran
 mlruns
 output
+bcc-basudara-v1
+indobert-basudara-v1
+indobert-tokenizer-basudara-v1
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
