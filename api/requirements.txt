@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+deta
+transformers
+numpy 
+pandas 
+torch
