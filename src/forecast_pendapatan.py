@@ -70,6 +70,9 @@ def forecast_pendapatan(KOTA: str):
     rm_gabung = pd.concat([rm_pendapatan, rm_future])
     rm_gabung = rm_gabung.rename(columns={"ds": "tahun", "y": "pendapatan"})
 
+    hiburan_gabung["tahun"] = hiburan_gabung["tahun"].astype(str)
+    hotel_gabung["tahun"] = hotel_gabung["tahun"].astype(str)
+    rm_gabung["tahun"] = rm_gabung["tahun"].astype(str)
     return hiburan_gabung, hotel_gabung, rm_gabung
 
 
