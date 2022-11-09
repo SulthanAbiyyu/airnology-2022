@@ -105,7 +105,6 @@ with hasil_ai:
         with st.spinner("Analisis sentimen.."):
             data_ai = predict_sentiment(data, "komentar")
         data_ai = data_ai.dropna()
-        st.table(data_ai)
         st.text("Jumlah bintang dari hasil sentiment analysis")
         st.bar_chart(data_ai["komentar_sentiment"].value_counts())
 
@@ -142,7 +141,12 @@ with summary:
         st.text("masukkan URL terlebih dahulu!")
     else:
         st.markdown("**Ringkasan**")
-        # Komentar2 rating rendah
+        st.download_button(
+            label="Download data as CSV",
+            data=data.to_csv(index=False).encode("utf-8"),
+            file_name='data_pariwisata.csv',
+            mime='text/csv',
+        )
 
 
 st.markdown("----")

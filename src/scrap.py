@@ -81,6 +81,8 @@ def scrap(url, chrome_driver_path, N_SCROLL, output_path="", to_csv=False):
         "komentar": komens
     })
 
+    data = data[data["komentar"] != ""]
+
     logging.info("to csv..")
     if to_csv:
         data.to_csv(output_path, index=False)

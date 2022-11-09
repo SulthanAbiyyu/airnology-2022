@@ -16,7 +16,6 @@ tokenizer = AutoTokenizer.from_pretrained(
 
 def predict_sentiment(data: pd.DataFrame, text_col: str) -> pd.DataFrame:
     logging.info("Removing null values...")
-    data = data.dropna(subset=[text_col])
     logging.info('Predicting sentiment...')
     data[f"{text_col}_sentiment"] = data[text_col].apply(lambda x: np.argmax(torch.nn.functional.softmax(
         model(**tokenizer([x], return_tensors='pt')).logits, dim=-1).detach().numpy()) + 1)
