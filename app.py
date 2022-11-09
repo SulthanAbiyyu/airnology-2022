@@ -3,6 +3,7 @@ from src.scrap import scrap
 from src.preprocess_text import clean_text
 from src.make_wordcloud import make_wordcloud
 from src.forecast_pendapatan import forecast_pendapatan
+from src.sentiment_analysis import predict_sentiment
 
 st.title("BCC BASUDARA")
 # st.text("Deskripsi blabalbla")
@@ -58,8 +59,9 @@ st.subheader("Scraper dan Sentiment Analysis")
 url = st.text_input("Masukkan URL")
 jumlah_scroll = st.number_input(
     "Masukkan jumlah scroll", min_value=1, max_value=200, value=5)
-button = st.button("proses")
 clean_button = st.checkbox("bersihkan data")
+sentiment_analysis_button = st.checkbox("Sentiment Analysis")
+button = st.button("proses")
 hasil_data, hasil_user, hasil_ai, summary = st.tabs(
     ["sample data", "hasil user", "hasil analisis sentimen", "ringkasan"])
 
@@ -98,8 +100,35 @@ with hasil_user:
 with hasil_ai:
     if not button:
         st.text("masukkan URL terlebih dahulu!")
-    else:
+    elif sentiment_analysis_button:
         st.markdown("**Hasil Review Dari User Menggunakan analisis sentimen**")
+        with st.spinner("Analisis sentimen.."):
+            data_ai = predict_sentiment(data, "komentar")
+        data_ai = data_ai.dropna()
+        st.table(data_ai)
+        st.text("Jumlah bintang dari hasil sentiment analysis")
+        st.bar_chart(data_ai["komentar_sentiment"].value_counts())
+
+        different = data_ai[data_ai["komentar_sentiment"]
+                            != data_ai["bintang"]]
+        st.markdown(
+            f"**Jumlah komentar yang berbeda dengan bintang: {len(different)}**")
+        st.table(different.dropna().head(10))
+
+        bintangs = list(data_ai["komentar_sentiment"].value_counts().index)
+        bintangs.sort(reverse=True)
+        for bintang in bintangs:
+            texts = " ".join(
+                data_ai[data_ai["komentar_sentiment"] == bintang]["komentar"])
+            if texts.strip() != "":
+                st.markdown(f"**Bintang {bintang}**")
+                st.pyplot(make_wordcloud(texts))
+            else:
+                st.markdown(f"**Bintang {bintang}**")
+                st.text("Tidak ada komentar")
+    else:
+        st.text("Centang Sentiment Analysis terlebih dahulu!")
+
 
 # with trend_sekitar:
 #     if not button:
