@@ -36,13 +36,13 @@ def forecast_pendapatan(KOTA: str):
 
     # Training
     logging.info("training model..")
-    hiburan_model = Prophet()
+    hiburan_model = Prophet(seasonality_mode='multiplicative')
     hiburan_model.fit(hiburan_pendapatan)
 
-    hotel_model = Prophet()
+    hotel_model = Prophet(seasonality_mode='multiplicative')
     hotel_model.fit(hotel_pendapatan)
 
-    rm_model = Prophet()
+    rm_model = Prophet(seasonality_mode='multiplicative')
     rm_model.fit(rm_pendapatan)
 
     # Forecasting
