@@ -25,7 +25,7 @@ def scrap(url, chrome_driver_path, N_SCROLL, output_path="", to_csv=False):
         '//*[@id="QA0Szd"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[2]/div[7]/div[2]/button'))
     menu.click()
     terbaru = wait.until(lambda driver: driver.find_element_by_xpath(
-        '//*[@id="action-menu"]/ul/li[2]'))
+        '//*[@id="action-menu"]/div[2]'))
     terbaru.click()
 
     time.sleep(1)
