@@ -58,12 +58,12 @@ st.markdown("---")
 st.subheader("Scraper dan Sentiment Analysis")
 url = st.text_input("Masukkan URL")
 jumlah_scroll = st.number_input(
-    "Masukkan jumlah scroll", min_value=1, max_value=200, value=5)
-clean_button = st.checkbox("bersihkan data")
+    "Masukkan jumlah scroll (semakin banyak jumlah scroll, semakin banyak pula data yang didapat)", min_value=1, max_value=200, value=5)
+clean_button = st.checkbox("Bersihkan Data")
 sentiment_analysis_button = st.checkbox("Sentiment Analysis")
-button = st.button("proses")
-hasil_data, hasil_user, hasil_ai, summary = st.tabs(
-    ["sample data", "hasil user", "hasil analisis sentimen", "ringkasan"])
+button = st.button("Proses")
+hasil_data, hasil_user, hasil_ai, download = st.tabs(
+    ["Sample Data", "Hasil User", "Hasil Analisis Sentimen", "Download"])
 
 if button:
     with st.spinner("Scrapping data.."):
@@ -136,11 +136,11 @@ with hasil_ai:
 #         st.markdown("**Trend Pariwisata di Jawa Barat**")
 #         st.text("Tableaunya mas ravie")
 
-with summary:
+with download:
     if not button:
         st.text("masukkan URL terlebih dahulu!")
     else:
-        st.markdown("**Ringkasan**")
+        # st.markdown("**Ringkasan**")
         st.download_button(
             label="Download data as CSV",
             data=data.to_csv(index=False).encode("utf-8"),
@@ -152,19 +152,14 @@ with summary:
 st.markdown("----")
 st.markdown("#### Penjelasan tiap tab")
 st.markdown("""
-1. tab `sample data` adalah
-1. tab `hasil user` adalah
-2. tab `hasil analisis sentimen` adalah
-4. tab `ringkasan` adalah
+1. tab `sample data` adalah 10 data teratas dari hasil scraping
+1. tab `hasil user` adalah hasil analisis dari bintang/rating yang diberikan oleh user
+2. tab `hasil analisis sentimen` adalah hasil analisis dari bintang/rating yang diperoleh dari analisis sentimen. Berfungsi sebagai pembanding
+4. tab `download` adalah adalah tempat untuk mengunduh data hasil scraping
 """)
 
-st.markdown("----")
 st.markdown("#### FAQ")
 st.markdown("""
 **Q1**: Bagaimana cara mendapatkan link google review? \\
-**A1**:
-
-**Q2**: Kenapa harus ada analisis sentimen, padahal sudah ada rating dari user? \\
-**A2**: Karena banyak sekali user yang memberikan rating tidak sesuai dengan komentar 
-    yang diberikan. Analisis sentimen akan membantu kita untuk memberi perban
+**A1**: Panduan bisa cek [di sini](https://docs.google.com/document/d/1wdX40kgx7M0cJXkMH46_CHfeNBEL4eYkG1Y_l6qi7jo/edit?usp=sharing)
 """)
